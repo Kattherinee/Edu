@@ -1,79 +1,56 @@
-﻿
+﻿using System;
 
 public class Program
 {
     public static void Main()
     {
-        IQueue<int> queue = new KatyQueue<int>();
-
         Random random = new Random();
+        MyLinkedList<int> linkedList = new MyLinkedList<int>();
 
-        for (int i = 1; i <= 10; i++)
-        {
-            int value = random.Next(1, 101); 
-            queue.Enqueue(value);
-            Console.WriteLine($" {value} добавлен в очередь.");
-        }
-
+        Console.WriteLine("Добавление элементов в связанный список:");
         for (int i = 0; i < 10; i++)
         {
-            int? dequeuedValue = queue.Dequeue();
-          
-                Console.WriteLine(dequeuedValue);
-            
+            int value = random.Next(1, 101); 
+            linkedList.Add(value);
+            Console.WriteLine($"Элемент {value} добавлен.");
         }
+
+        Console.WriteLine("\nЭлементы связанного списка:");
+        PrintWithIEnumerable(linkedList);
+
+        Console.WriteLine("\nУдаление первых 5 элементов:");
+        for (int i = 0; i < 5; i++)
+        {
+            if (linkedList.Count > 0)
+            {
+                int valueToRemove = linkedList.GetFirst();
+                linkedList.Remove(valueToRemove);
+                Console.WriteLine($"Элемент {valueToRemove} удален.");
+            }
+        }
+
+        Console.WriteLine("\nОставшиеся элементы:");
+        PrintWithIEnumerable(linkedList);
+
 
     }
 
+    private static void PrintWithIEnumerable<T>(IEnumerable<T> collection)
+    {
+        foreach (var item in collection)
+        {
+            
+            Console.WriteLine(item);
+        }
+    }
+
+    private static void TestIEnumerable<T>(IEnumerable<T> collection)
+    {
+        Console.WriteLine("Тест работы с IEnumerable:");
+        using var enumerator = collection.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            Console.WriteLine($"Текущий элемент: {enumerator.Current}");
+        }
+    }
 }
-
-
-
-// using Stack_queue_list;
-
-// public class Program
-// {
-//     public static void Main()
-//     {
-//         IStack<int> stack = new KatyStack<int>();
-//         while (true)
-//         {
-//             Console.WriteLine("Выберите действие: 1 - Push, 2 - Pop, 3 - Выход");
-//             string? input = Console.ReadLine();
-
-//             if (input == "1")
-//             {
-//                 Console.Write("Введите значение для добавления в стек: ");
-//                 if (int.TryParse(Console.ReadLine(), out int value))
-//                 {
-//                     stack.Push(value);
-//                     Console.WriteLine($"Элемент {value} добавлен в стек.");
-//                 }
-//                 else
-//                 {
-//                     Console.WriteLine("Некорректное значение.");
-//                 }
-//             }
-//             else if (input == "2")
-//             {
-//                 int? poppedValue = stack.Pop();
-//                 if (poppedValue == null)
-//                 {
-//                     Console.WriteLine("Стек пуст.");
-//                 }
-//                 else
-//                 {
-//                     Console.WriteLine($"Извлечен элемент: {poppedValue}");
-//                 }
-//             }
-//             else if (input == "3")
-//             {
-//                 break;
-//             }
-//             else
-//             {
-//                 Console.WriteLine("Некорректное действие. Повторите ввод.");
-//             }
-//         }
-//     }
-// }

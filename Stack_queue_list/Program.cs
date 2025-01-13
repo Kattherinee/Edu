@@ -3,7 +3,7 @@ using Stack_queue_list;
 
 public class Program
 {
-    public static void Main()
+    public static void Main(string[] args)
     {
         PriceRounder.Test(PriceRoundOption.X_95, true);
         PriceRounder.Test(PriceRoundOption.X_95, false);
@@ -17,5 +17,7 @@ public class Program
         PriceRounder.Test(PriceRoundOption.X_X5, false);
         PriceRounder.Test(PriceRoundOption.X_X9, true);
         PriceRounder.Test(PriceRoundOption.X_X9, false);
+
+        Console.ReadKey();
     }
 }
